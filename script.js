@@ -46,7 +46,10 @@ function renderWeek() {
   const savedData = JSON.parse(localStorage.getItem("waterTracker")) || {};
   const weekData = savedData[weekKey] || {};
 
-  const dayNames = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+  const dayNames = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+
+   let todayIndex = today.getDay();
+    todayIndex = todayIndex === 0 ? 6 : todayIndex - 1;
 
   for (let i = 0; i < 7; i++) {
 
@@ -55,9 +58,17 @@ function renderWeek() {
 
     const label = document.createElement("div");
     label.className = "day-label";
-    label.textContent = dayNames[i];
+    const dateForDay = new Date(start);
+    dateForDay.setDate(start.getDate() + i);
 
-    if (weekOffset === 0 && i === today.getDay()) {
+    label.innerHTML = `
+      <span class="day-name">${dayNames[i]}</span>
+      <span class="day-date">${dateForDay.getDate()}</span>
+    `;
+
+   
+
+    if (weekOffset === 0 && i === todayIndex) {
       label.classList.add("today");
     }
 

@@ -115,14 +115,38 @@ header h1 {
 }
 
 .day-label {
-  width: 50px;
-  font-size: 14px;
+  width: 60px;              /* fixed width prevents shifting */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
   letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 .day-label.today {
   color: #8aaefc;
   font-weight: 600;
+}
+
+.day-name {
+  font-weight: 500;
+}
+
+.day-date {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.day-label.today .day-name {
+  color: #8aaefc;
+  font-weight: 600;
+}
+
+.day-label.today .day-date {
+  color: #8aaefc;
 }
 
 .drops {
