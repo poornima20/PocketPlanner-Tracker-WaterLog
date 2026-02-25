@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Water Log</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+
+  <div class="tracker">
+
+    <header>
+    <h2>Water Tracker</h2>
+    <div class="meta">
+
+    <div class="week-line">
+        <button id="prevWeek" class="nav-btn">
+        <i data-lucide="chevron-left"></i>
+        </button>
+
+        <p id="weekRange"></p>
+
+        <button id="nextWeek" class="nav-btn">
+        <i data-lucide="chevron-right"></i>
+        </button>
+    </div>
+
+    <p id="monthName" class="month-click"></p>
+
+    </div>
+
+    <div class="stats">
+        <span id="cupsCount">0 cups</span>
+        <span class="divider">•</span>
+        <span id="weekTotal">0 ml</span>
+    </div>
+    </header>
+
+    <div class="days" id="daysContainer"></div>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
