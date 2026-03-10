@@ -1,3 +1,4 @@
+const STORAGE_KEY = "fullmoon.pocketplanner.waterlog";
 const daysContainer = document.getElementById("daysContainer");
 const weekTotal = document.getElementById("weekTotal");
 const weekRange = document.getElementById("weekRange");
@@ -43,7 +44,7 @@ function renderWeek() {
   monthName.textContent = start.toLocaleString('default', { month: 'long' });
 
   const weekKey = start.toISOString().split("T")[0]; // unique key
-  const savedData = JSON.parse(localStorage.getItem("waterTracker")) || {};
+  const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
   const weekData = savedData[weekKey] || {};
 
   const dayNames = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
@@ -106,8 +107,7 @@ function renderWeek() {
             savedData[weekKey][i].filter(index => index !== j);
         }
 
-        localStorage.setItem("waterTracker", JSON.stringify(savedData));
-
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
         updateTotals();
       });
 
