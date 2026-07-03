@@ -9,12 +9,37 @@ const ML_PER_DROP = 250;
 let weekOffset = 0;
 let totalDrops = 0;
 
+function getWaterData() {
+  const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+  return stored?.data || {};
+}
+
+function saveWaterData(data) {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      data,
+      updatedAt: Date.now(),
+    }),
+  );
+
+  // notify dashboard sync
+  window.parent.postMessage(
+    {
+      type: "plannerUpdated",
+      key: STORAGE_KEY,
+    },
+    "*",
+  );
+}
+
 function getWeekStart(date) {
   const d = new Date(date);
   const day = d.getDay();
   const diff = d.getDate() - day + (day === 0 ? -6 : 1);
   d.setDate(diff);
-  d.setHours(0,0,0,0);
+  d.setHours(0, 0, 0, 0);
   return d;
 }
 
@@ -25,7 +50,6 @@ function updateTotals() {
 }
 
 function renderWeek() {
-
   daysContainer.innerHTML = "";
   totalDrops = 0;
 
@@ -37,23 +61,21 @@ function renderWeek() {
   const end = new Date(start);
   end.setDate(start.getDate() + 6);
 
-  weekRange.textContent =
-    `${start.getDate()} ${start.toLocaleString('default',{month:'short'})} - 
-     ${end.getDate()} ${end.toLocaleString('default',{month:'short'})}`;
+  weekRange.textContent = `${start.getDate()} ${start.toLocaleString("default", { month: "short" })} - 
+     ${end.getDate()} ${end.toLocaleString("default", { month: "short" })}`;
 
-  monthName.textContent = start.toLocaleString('default', { month: 'long' });
+  monthName.textContent = start.toLocaleString("default", { month: "long" });
 
   const weekKey = start.toISOString().split("T")[0]; // unique key
-  const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  const savedData = getWaterData();
   const weekData = savedData[weekKey] || {};
 
-  const dayNames = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+  const dayNames = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
-   let todayIndex = today.getDay();
-    todayIndex = todayIndex === 0 ? 6 : todayIndex - 1;
+  let todayIndex = today.getDay();
+  todayIndex = todayIndex === 0 ? 6 : todayIndex - 1;
 
   for (let i = 0; i < 7; i++) {
-
     const row = document.createElement("div");
     row.className = "day-row";
 
@@ -67,8 +89,6 @@ function renderWeek() {
       <span class="day-date">${dateForDay.getDate()}</span>
     `;
 
-   
-
     if (weekOffset === 0 && i === todayIndex) {
       label.classList.add("today");
     }
@@ -77,7 +97,6 @@ function renderWeek() {
     dropsContainer.className = "drops";
 
     for (let j = 0; j < 8; j++) {
-
       const drop = document.createElement("div");
       drop.className = "drop";
 
@@ -94,7 +113,6 @@ function renderWeek() {
       }
 
       drop.addEventListener("click", () => {
-
         drop.classList.toggle("filled");
 
         if (!savedData[weekKey]) savedData[weekKey] = {};
@@ -103,11 +121,12 @@ function renderWeek() {
         if (drop.classList.contains("filled")) {
           savedData[weekKey][i].push(j);
         } else {
-          savedData[weekKey][i] =
-            savedData[weekKey][i].filter(index => index !== j);
+          savedData[weekKey][i] = savedData[weekKey][i].filter(
+            (index) => index !== j,
+          );
         }
 
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
+        saveWaterData(savedData);
         updateTotals();
       });
 
@@ -122,10 +141,7 @@ function renderWeek() {
   updateTotals();
 }
 
-
-
 renderWeek();
-
 
 document.getElementById("prevWeek").addEventListener("click", () => {
   weekOffset--;
@@ -137,8 +153,7 @@ document.getElementById("nextWeek").addEventListener("click", () => {
   renderWeek();
 });
 
-
 document.getElementById("monthName").addEventListener("click", () => {
-  weekOffset = 0;   // reset to current week
+  weekOffset = 0; // reset to current week
   renderWeek();
 });
