@@ -1,56 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Water Log</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Log</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Lucide -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="tracker">
+      <header class="tracker-header">
+        <div class="title-row">
+          <div class="title-left">
+            <div class="water-icon">
+              <i data-lucide="droplets"></i>
+            </div>
 
+            <div>
+              <h1>Water Tracker</h1>
 
+              <p class="subtitle">
+                Track your daily hydration, feel your best.
+              </p>
+            </div>
+          </div>
 
-  <div class="tracker">
+          <div class="summary-card">
+            <div class="summary">
+              <i data-lucide="cup-soda"></i>
 
-    <header>
-    <h2>Water Tracker</h2>
-    <div class="meta">
+              <div>
+                <strong id="cupsCount">0 cups</strong>
 
-    <div class="week-line">
-        <button id="prevWeek" class="nav-btn">
-        <i data-lucide="chevron-left"></i>
-        </button>
+                <span>of 8 cups</span>
+              </div>
+            </div>
 
-        <p id="weekRange"></p>
+            <div class="summary-divider"></div>
 
-        <button id="nextWeek" class="nav-btn">
-        <i data-lucide="chevron-right"></i>
-        </button>
+            <div class="summary">
+              <i data-lucide="droplets"></i>
+
+              <div>
+                <strong id="weekTotal">0 ml</strong>
+
+                <span>of 2000 ml</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="date-card">
+          <button id="prevWeek" class="nav-btn">
+            <i data-lucide="chevron-left"></i>
+          </button>
+
+          <div>
+            <p id="weekRange"></p>
+
+            <p id="monthName" class="month-click"></p>
+          </div>
+
+          <button id="nextWeek" class="nav-btn">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="days" id="daysContainer"></div>
     </div>
 
-    <p id="monthName" class="month-click"></p>
-
-    </div>
-
-    <div class="stats">
-        <span id="cupsCount">0 cups</span>
-        <span class="divider">•</span>
-        <span id="weekTotal">0 ml</span>
-    </div>
-    </header>
-
-    <div class="days" id="daysContainer"></div>
-
-  </div>
-
-  <script src="script.js"></script>
-  <script>lucide.createIcons();</script>
-</body>
+    <script src="script.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
 </html>

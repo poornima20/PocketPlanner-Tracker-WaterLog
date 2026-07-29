@@ -1,206 +1,419 @@
+/* ==========================================================================
+   WATER TRACKER - CLEAN RESPONSIVE STYLESHEET
+   Designed for the supplied HTML structure
+   ========================================================================== */
+
+/* =========================
+   RESET
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+:root {
+  --primary: #7ea6ff;
+  --primary-dark: #5d8dff;
+  --text: #111827;
+  --muted: #64748b;
+  --border: #e8eef6;
+  --line: #eef2f7;
+  --bg: #ffffff;
+}
+
+html,
+body {
+  width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: 'Inter', sans-serif;
-  background: #ffffff;
+  background: var(--bg);
+  font-family: "Inter", sans-serif;
 }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
 
 .tracker {
+  width: min(1050px, 100vw);
   height: 100vh;
-  max-width: 900px;     /* limit width */
-  margin: 0 auto;       /* center horizontally */
+  padding: 24px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 22px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.tracker-header {
   display: flex;
   flex-direction: column;
-  padding: 2vh 2rem;
+  gap: 20px;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 2vh;
-  position: relative;
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
 }
 
-header h1 {
-  font-size: clamp(28px, 5vw, 48px);
+.title-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.meta {
+.water-icon {
+  width: 74px;
+  height: 74px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.water-icon svg {
+  width: 34px;
+  height: 34px;
+  color: var(--primary);
+}
+
+.title-left h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.subtitle {
   margin-top: 6px;
-  font-size: 14px;
-  color: #64748b;
+  color: var(--muted);
+  font-size: 1.2rem;
 }
 
-.meta p {
-  margin: 2px 0;
-}
+/* =========================
+   SUMMARY CARD
+========================= */
 
-.stats {
-  margin-top: 12px;
-  font-weight: 500;
-  font-size: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.divider {
-  color: #94a3b8;
-}
-
-.week-line {
+.summary-card {
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 18px 26px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 26px;
+  flex-shrink: 0;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
   gap: 14px;
 }
 
+.summary svg {
+  width: 30px;
+  height: 30px;
+  color: var(--primary);
+}
+
+.summary strong {
+  display: block;
+  font-size: 2rem;
+}
+
+.summary span {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 60px;
+  background: var(--border);
+}
+
+/* =========================
+   DATE CARD
+========================= */
+
+.date-card {
+  width: 430px;
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+}
+
 .nav-btn {
-  background: none;
   border: none;
+  background: none;
   cursor: pointer;
   color: #64748b;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 4px;
-  transition: 0.2s ease;
-}
-
-.nav-btn:hover {
-  color: #2563eb;
-  transform: scale(1.1);
 }
 
 .nav-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 
 #weekRange {
-  margin-top: 4px;
-  font-size: 14px;
-  color: #666;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
-.stats {
-  margin-top: 8px;
-  font-weight: 500;
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+#monthName {
+  color: var(--primary-dark);
+  text-align: center;
+  cursor: pointer;
+  margin-top: 2px;
 }
+
+/* =========================
+   DAYS
+========================= */
 
 .days {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  transition: opacity 0.2s ease;
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  border-top: 1px solid var(--line);
 }
 
 .day-row {
   display: grid;
-  grid-template-columns: 60px auto;
-  justify-content: center;
+  grid-template-columns: 70px 1fr;
   align-items: center;
-  gap: 30px;
+  border-bottom: 1px solid var(--line);
+  padding: 0 12px;
 }
 
 .day-label {
-  width: 60px;              /* fixed width prevents shifting */
+  width: 70px; /* Same as grid column */
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: 12px;
-  letter-spacing: 1px;
-  line-height: 1.2;
-}
-
-.day-label.today {
-  color: #8aaefc;
-  font-weight: 600;
+  align-items: center;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 .day-name {
-  font-weight: 500;
+  display: block;
+  width: 100%;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  text-align: center;
 }
 
 .day-date {
-  font-size: 11px;
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 0.82rem;
   color: #94a3b8;
-  margin-top: 2px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
-.day-label.today .day-name {
-  color: #8aaefc;
-  font-weight: 600;
-}
-
+.day-label.today .day-name,
 .day-label.today .day-date {
-  color: #8aaefc;
+  color: var(--primary);
 }
 
 .drops {
-  display: flex;
-  gap: 8px;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  justify-items: center;
+  align-items: center;
 }
 
 .drop {
   cursor: pointer;
-  color: #cbd5e1;
-  transition: 0.2s;
 }
 
 .drop-svg {
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   stroke: #94a3b8;
   stroke-width: 1.5;
-  fill: transparent;
-  transition: fill 0.25s ease, transform 0.2s ease;
+  fill: none;
+  transition: 0.2s;
+}
+
+.drop:hover .drop-svg {
+  transform: scale(1.08);
 }
 
 .drop.filled .drop-svg {
-  fill: #8aaefc;
-  stroke: #9abaff;
-  transform: scale(1.1);
+  fill: var(--primary);
+  stroke: var(--primary);
 }
 
-.week-nav {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  display: flex;
-  gap: 10px;
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+  .tracker {
+    padding: 18px;
+  }
+
+  .title-left h1 {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .summary strong {
+    font-size: 1.6rem;
+  }
+
+  .drop-svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
-.week-nav button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  color: #64748b;
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow: hidden;
+  }
+
+  .tracker {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .tracker-header {
+    gap: 12px;
+  }
+
+  .title-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .title-left {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .water-icon {
+    width: 54px;
+    height: 54px;
+  }
+
+  .water-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .title-left h1 {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .summary-card {
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 12px 14px;
+  }
+
+  .summary strong {
+    font-size: 1.3rem;
+  }
+
+  .summary span {
+    font-size: 0.78rem;
+  }
+
+  .summary svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .summary-divider {
+    height: 44px;
+  }
+
+  .date-card {
+    width: 100%;
+    padding: 8px 14px;
+  }
+
+  #weekRange {
+    font-size: 1rem;
+  }
+
+  #monthName {
+    font-size: 0.9rem;
+  }
+
+  .day-label {
+    width: 58px;
+  }
+
+  .day-row {
+    grid-template-columns: 58px 1fr;
+    padding: 0 6px;
+  }
+
+  .day-name {
+    font-size: 0.72rem;
+  }
+
+  .day-date {
+    font-size: 0.65rem;
+  }
+
+  .drops {
+    gap: 2px;
+  }
+
+  .drop-svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
-.week-nav button:hover {
-  color: #2563eb;
-}
+/* Extra small phones */
 
-.month-click {
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.month-click:hover {
-  color: #2563eb;
+@media (max-width: 390px) {
+  .tracker {
+    transform: scale(0.94);
+    transform-origin: top center;
+  }
 }

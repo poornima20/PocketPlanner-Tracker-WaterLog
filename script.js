@@ -113,17 +113,36 @@ function renderWeek() {
       }
 
       drop.addEventListener("click", () => {
-        drop.classList.toggle("filled");
+        // Get all droplets for this day
+        const allDrops = dropsContainer.querySelectorAll(".drop");
 
-        if (!savedData[weekKey]) savedData[weekKey] = {};
-        if (!savedData[weekKey][i]) savedData[weekKey][i] = [];
-
+        // If clicked droplet is already filled,
+        // remove this droplet and everything after it.
         if (drop.classList.contains("filled")) {
-          savedData[weekKey][i].push(j);
-        } else {
-          savedData[weekKey][i] = savedData[weekKey][i].filter(
-            (index) => index !== j,
-          );
+          savedData[weekKey][i] = [];
+
+          allDrops.forEach((d, index) => {
+            if (index < j) {
+              d.classList.add("filled");
+              savedData[weekKey][i].push(index);
+            } else {
+              d.classList.remove("filled");
+            }
+          });
+        }
+
+        // Otherwise fill everything from first droplet to clicked droplet.
+        else {
+          savedData[weekKey][i] = [];
+
+          allDrops.forEach((d, index) => {
+            if (index <= j) {
+              d.classList.add("filled");
+              savedData[weekKey][i].push(index);
+            } else {
+              d.classList.remove("filled");
+            }
+          });
         }
 
         saveWaterData(savedData);
